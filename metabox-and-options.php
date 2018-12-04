@@ -120,7 +120,6 @@ function themename_theme_options($options){
 
 
 
-
     return $options;
 
 }
