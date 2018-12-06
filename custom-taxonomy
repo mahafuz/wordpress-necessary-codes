@@ -80,8 +80,9 @@ function car_custom_taxonomy() {
 		
     );
     $args = array(
-		'labels'                     => $labels,
-		'public'                     => true,
+	'labels'                     => $labels,
+        'public'                     => true,
+        'hierarchical'               => true,
 		'rewrite'               => array(
             'slug'              => 'car-brands', 
             'with_front'    => true ,
