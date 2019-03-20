@@ -31,6 +31,15 @@ function add_elementor_widget_categories( $elements_manager ) {
 }
 add_action( 'elementor/elements/categories_registered', 'add_elementor_widget_categories' );
 
+
+
+//Registering extension files
+function extension_files(){
+	wp_enqueue_style('extension-main', plugin_dir_url(__FILE__). '/css/extension.css');
+}
+add_action('wp_enqueue_scripts', 'extension_files');
+
+
 /**
  * Main Extension Name Class
  *
