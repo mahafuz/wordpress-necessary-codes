@@ -21,33 +21,31 @@ get_header();
 	</div>
 </div>
 <div class="themename-post-item-wrapper">
-<div class="container">
-	<div class="row">
-		<div class="col-lg-8">
-		<?php
-			if ( have_posts() ) :
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8">
+			<?php
+				if ( have_posts() ) :
+					/* Start the Loop */
+					while ( have_posts() ) :
+						the_post();
+						get_template_part( 'template-parts/content', get_post_type() );
+					endwhile;?>
 
-				/* Start the Loop */
-				while ( have_posts() ) :
-					the_post();
-					get_template_part( 'template-parts/content', get_post_type() );
-				endwhile;?>
-
-				<?php if(function_exists('wp_pagenavi')): ?>
-                    <div class="themename-navigation"><?php wp_pagenavi(); ?></div>
-                <?php endif; ?>
-				
-			<?php else :
-				get_template_part( 'template-parts/content', 'none' );
-
-			endif;
-			?>
-		</div>
-		<div class="col-lg-4">
-			<?php get_sidebar(); ?>
+					<?php if(function_exists('wp_pagenavi')): ?>
+						<div class="themename-navigation"><?php wp_pagenavi(); ?></div>
+					<?php endif; ?>
+					
+				<?php else :
+					get_template_part( 'template-parts/content', 'none' );
+				endif;
+				?>
+			</div>
+			<div class="col-lg-4">
+				<?php get_sidebar(); ?>
+			</div>
 		</div>
 	</div>
-</div>
 </div>
 
 <?php
