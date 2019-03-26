@@ -267,31 +267,47 @@ class Elementor_slider_Widget extends \Elementor\Widget_Base {
 			$loop            = $settings['loop'] ? $settings['loop'] : 'false';
 			$mouseDrag       = $settings['mouseDrag'] ? $settings['mouseDrag'] : 'false';
 			$touchDrag       = $settings['touchDrag'] ? $settings['touchDrag'] : 'false';
-			$autoplayTimeout = $settings['autoplayTimeout'] ? $settings['autoplayTimeout'] : '0';
-				
+            $autoplayTimeout = $settings['autoplayTimeout'] ? $settings['autoplayTimeout'] : '0';
+            
+            $this->add_render_attribute(
+                'slider-wrapper',
+                [
+                    'class' => 'pnw-slider-wrapper',
+                    'id'    => 'pnw-slider-'.esc_attr($sliderDynamicId),
+                    'data-countslide'   => $countSlide,
+                    'data-dots'=> $dots,
+                    'data-nav'  => $nav,
+                    'data-loop' => $loop,
+                    'data-autoplay' => $autoplay,
+                    'data-autoplay-timeout' => $autoplayTimeout
+                    'data-mouse-drag'   => $mouseDrag,
+                    'data-touch-drag'   => $touchDrag
+                ]
+            );
+                
+            ?>
 			
-			echo'
-				<div data-countslide="'.$countSlide.'" data-dots="'.$dots.'" data-nav="'.$nav.'" data-loop="'.$loop.'" data-autoplay="'.$autoplay.'" data-autoplay-timeout="'.$autoplayTimeout.'" data-mouse-drag="'.$mouseDrag.'" data-touch-drag="'.$touchDrag.'"  class="pnw-slider-wrapper" id="pnw-slider-'.esc_attr($sliderDynamicId).'">';
-				foreach ($settings['slides'] as $slide) {
-				echo'
-					<div class = "single-pnw-slide text-center" style = "background-image:url('.wp_get_attachment_image_url( $slide['slideImage']['id'], 'large' ).');">
+			<div <?php echo $this->get_render_attribute_string('slider-wrapper'); ?>>
+				<?php foreach ($settings['slides'] as $slide) : ?>
+				<div class = "single-pnw-slide text-center" style = "background-image:url('.wp_get_attachment_image_url( $slide['slideImage']['id'], 'large' ).');">
 						<div class = "container">
 							<div class = "row">
 								<div class = "col-lg-12">
-									'.wpautop( $slide['slideText'] ).'';
-									$target   = $slide['btnUrl']['is_external'] ? ' target="_blank"' : '';
-									$nofollow = $slide['btnUrl']['nofollow'] ? ' rel="nofollow"' : '';
-									if( !empty($slide['btnText']) ){
-										echo '<a href="'.esc_url( $slide['btnUrl']['url'] ).'" '. $target . $nofollow .' class="boxed-btn">'.esc_html( $slide['btnText'] ).'</a>';
-									}
-							echo'	
-								</div>
+                                <?php
+                                    	wpautop( $slide['slideText'] );
+					$target   = $slide['btnUrl']['is_external'] ? ' target="_blank"' : '';
+					$nofollow = $slide['btnUrl']['nofollow'] ? ' rel="nofollow"' : '';
+					if( !empty($slide['btnText']) ){
+						echo '<a href="'.esc_url( $slide['btnUrl']['url'] ).'" '. $target . $nofollow .' class="boxed-btn">'.esc_html( $slide['btnText'] ).'</a>';
+                                    	}
+                                ?>
 							</div>
 						</div>
-					</div>';
-				}
-			echo'
-				</div>';
+					</div>
+				</div>
+                <?php endforeach; ?>
+		</div>
+        <?php
 		}
 	}
 
